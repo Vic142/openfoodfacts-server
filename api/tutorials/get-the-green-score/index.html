@@ -1,0 +1,2157 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://openfoodfacts.github.io/openfoodfacts-server/api/tutorials/get-the-green-score/">
+      
+      
+        <link rel="prev" href="../get-ingredient-related-analysis/">
+      
+      
+        <link rel="next" href="../get-the-nutriscore/">
+      
+      
+      <link rel="icon" href="https://static.openfoodfacts.org/images/logos/off-logo-favicon-light.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.14">
+    
+    
+      
+        <title>Get the green score - Product Opener (Open Food Facts Server)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../../assets/stylesheets/main.342714a4.min.css">
+      
+        
+        <link rel="stylesheet" href="../../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#table-of-contents" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../../.." title="Product Opener (Open Food Facts Server)" class="md-header__button md-logo" aria-label="Product Opener (Open Food Facts Server)" data-md-component="logo">
+      
+  <img src="https://static.openfoodfacts.org/images/logos/off-logo-horizontal-light.svg" alt="logo">
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Product Opener (Open Food Facts Server)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Get the green score
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/openfoodfacts/openfoodfacts-server" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../../.." title="Product Opener (Open Food Facts Server)" class="md-nav__button md-logo" aria-label="Product Opener (Open Food Facts Server)" data-md-component="logo">
+      
+  <img src="https://static.openfoodfacts.org/images/logos/off-logo-horizontal-light.svg" alt="logo">
+
+    </a>
+    Product Opener (Open Food Facts Server)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/openfoodfacts/openfoodfacts-server" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2024 Fonticons, Inc.--><path d="M439.55 236.05 244 40.45a28.87 28.87 0 0 0-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 0 1-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 0 0 0 40.81l195.61 195.6a28.86 28.86 0 0 0 40.8 0l194.69-194.69a28.86 28.86 0 0 0 0-40.81"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Product Opener (Open Food Facts web server) documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Api
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            Api
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Open Food Facts API documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro-robotoff/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to the Robotoff Project
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial-dev-journey/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tutorial dev journey
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial-off-api/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tutorial on using the Open Food Facts API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../tutorial-uploading-photo-to-a-product/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tutorial on uploading images to the Open Food Facts API
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../how-to-download-images/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to download product images
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../explain-knowledge-panels/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Explanation on Knowledge panels
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ref-api-and-product-schema-change-log/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reference: API and product schema change log
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ref-barcode-normalization/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reference: Barcode Normalization
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ref-cheatsheet/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reference: API CheatSheet
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ref-v2/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reference OpenAPI documentation for v2
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ref-v3/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reference OpenAPI documentation for v3
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../aws-images-dataset/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Open Food Facts AWS images dataset
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../leveraging-links-to-wikidata/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Leveraging links to wikidata
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_15" >
+        
+          
+          <label class="md-nav__link" for="__nav_2_15" id="__nav_2_15_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Api tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_15_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2_15">
+            <span class="md-nav__icon md-icon"></span>
+            Api tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../api-tutorials/get-the-nutriscore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Get the nutriscore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_2_16" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_2_16" id="__nav_2_16_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Tutorials
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_16_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_2_16">
+            <span class="md-nav__icon md-icon"></span>
+            Tutorials
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../adding-missing-products/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Adding missing products
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../comparing-sodas/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Comparing sodas
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../creating-a-local-cache-of-open-food-facts-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Creating a local cache of open food facts data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../finding-healthy-cereals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Finding healthy cereals
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../folksonomy-engine/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Folksonomy engine
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../get-in-touch-with-openfoodfacts/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Get in touch with openfoodfacts
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../get-ingredient-related-analysis/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Get ingredient related analysis
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    Get the green score
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    Get the green score
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of contents
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Table of contents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementing-the-basic-display-of-the-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementing the basic display of the score
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementing the basic display of the score">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preferred-method-knowledge-panels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preferred method : Knowledge panels
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-raw-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the Raw API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-attributes-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the Attributes API
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#displaying-the-green-score-outside-france" class="md-nav__link">
+    <span class="md-ellipsis">
+      Displaying the Green-Score outside France
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ensuring-a-good-user-experience-even-with-data-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ensuring a good user experience (even with data gaps)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-value-by-explaining" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding value by explaining
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-ways-to-get-ready" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional ways to get ready
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../get-the-nutriscore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Get the nutriscore
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../how-to-create-data-quality-controls-in-your-app/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to create data quality controls in your app
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../license-be-on-the-legal-side/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    License be on the legal side
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../product-prices/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Product prices
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../reporting-issues-with-nutripatrol/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reporting issues with nutripatrol
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../scanning-cosmetics-pet-food-and-other-products/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Scanning cosmetics pet food and other products
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../working-with-facets/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Providing knowledge panels for a particular Open Food Facts facet (category, brand, etc...)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Dev
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            Dev
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Introduction to Product Opener developer documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-add-a-translation/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to add a translation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-debug-minion-import-and-export-tasks/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to debug Minion import and export tasks
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-develop-producer-platform/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to develop on the producers platform
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-develop-using-docker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to use Docker to Develop - a guide
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-develop-with-webcomponents/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to develop with WebComponents
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-learn-perl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How can I learn the Perl programming language?
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-quick-start-guide/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to setup the Dev environment (quick start guide)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-release/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to deploy a release
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-update-agribalyse-ecoscore/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to update Agribalyse (Ecoscore)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-use-automated-pr-actions/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to use automated pull request actions
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-use-direnv/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to use direnv
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-use-gitpod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to use Gitpod for Remote Development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-use-pages-from-openfoodfacts-web/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to use pages from openfoodfacts-web
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-use-repl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to use Perl REPL (re.pl)
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-use-vscode/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to use VSCode
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/how-to-write-and-run-tests/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    How to write and run tests
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/explain-nutrition-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Explain nutrition data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/explain-packaging-data/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Explanation on packaging data
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/explain-personal-search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Explain personal search
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/explain-pro-dev-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Explanation on Docker Setup of pro platform for development
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/explain-taxonomy-build-cache/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Explanation on Taxonomy Build Cache
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/ref-docker-commands/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reference Docker / Makefile commands
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/ref-perl-pod/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Perl reference documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../../dev/ref-perl/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Reference Perl code documentation
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#table-of-contents" class="md-nav__link">
+    <span class="md-ellipsis">
+      Table of contents
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Table of contents">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#implementing-the-basic-display-of-the-score" class="md-nav__link">
+    <span class="md-ellipsis">
+      Implementing the basic display of the score
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Implementing the basic display of the score">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#preferred-method-knowledge-panels" class="md-nav__link">
+    <span class="md-ellipsis">
+      Preferred method : Knowledge panels
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-raw-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the Raw API
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#using-the-attributes-api" class="md-nav__link">
+    <span class="md-ellipsis">
+      Using the Attributes API
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#displaying-the-green-score-outside-france" class="md-nav__link">
+    <span class="md-ellipsis">
+      Displaying the Green-Score outside France
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ensuring-a-good-user-experience-even-with-data-gaps" class="md-nav__link">
+    <span class="md-ellipsis">
+      Ensuring a good user experience (even with data gaps)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#adding-value-by-explaining" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adding value by explaining
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-ways-to-get-ready" class="md-nav__link">
+    <span class="md-ellipsis">
+      Additional ways to get ready
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+    <a href="https://github.com/openfoodfacts/openfoodfacts-server/edit/main/docs/api/tutorials/get-the-green-score.md" title="Edit this page" class="md-content__button md-icon">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20H6V4h7v5h5v3.1l2-2V8l-6-6H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h4zm10.2-7c.1 0 .3.1.4.2l1.3 1.3c.2.2.2.6 0 .8l-1 1-2.1-2.1 1-1c.1-.1.2-.2.4-.2m0 3.9L14.1 23H12v-2.1l6.1-6.1z"/></svg>
+    </a>
+  
+  
+
+
+  <h1>Get the green score</h1>
+
+<p>Helping your users get the Green-Score for any product</p>
+<ul>
+<li>If you can't get the information on a specific product, you can get your user to send photos and data.</li>
+<li>That will then be processed by Open Food Facts to get the computed result you want to show them.</li>
+<li>You can implement the complete flow so that they get immediately the result with some effort on their side.</li>
+<li>That will ensure user satisfaction</li>
+<li>Please refer to the <a href="../adding-missing-products/">product addition tutorial</a> for the technical way to do the required operations (such as category input), and to the high level workflow below for all the cases you have to handle.</li>
+</ul>
+<h2 id="table-of-contents">Table of contents<a class="headerlink" href="#table-of-contents" title="Permanent link">#</a></h2>
+<ul>
+<li>Getting your app ready for the Green-Score</li>
+<li>Implementing the basic display of the score</li>
+<li>Displaying the Green-Score outside France</li>
+<li>Ensuring a good user experience (even with data gaps)</li>
+<li>Adding disclaimers when we can't display the Green-Score</li>
+<li>Adding disclaimers when the Green-Score is computed with a data gap + Asking the users to photograph and/or complete missing information</li>
+<li>Adding value by explaining</li>
+<li>Product Attributes</li>
+<li>Additional ways to get ready</li>
+<li>Onboarding producers you know</li>
+</ul>
+<h3 id="implementing-the-basic-display-of-the-score">Implementing the basic display of the score<a class="headerlink" href="#implementing-the-basic-display-of-the-score" title="Permanent link">#</a></h3>
+<h4 id="preferred-method-knowledge-panels">Preferred method : Knowledge panels<a class="headerlink" href="#preferred-method-knowledge-panels" title="Permanent link">#</a></h4>
+<ul>
+<li>With Knowledge panels, you just have to implement a for-loop in your app. Translations, updates, and all the complexity will be handled </li>
+</ul>
+<h4 id="using-the-raw-api">Using the Raw API<a class="headerlink" href="#using-the-raw-api" title="Permanent link">#</a></h4>
+<ul>
+<li>The API is adding a new ecoscore_grade field from A to F. Technically wise, it behaves like the Nutri-Score, so you can clone part of your Nutri-Score implementation </li>
+<li>If (and only if) the server sends back a proper value (a+, a, b, c, d, e or f), display the new score, otherwise, display our gray placeholder</li>
+<li><a href="https://world.openfoodfacts.org/api/v0/product/3414280980209.json?fields=environmental_score_grade">https://world.openfoodfacts.org/api/v0/product/3414280980209.json?fields=environmental_score_grade</a></li>
+<li>{"status_verbose":"product found","product":{"ecoscore_grade":"b"},"status":1,"code":"3414280980209"}</li>
+<li>https://world.openfoodfacts.org/api/v0/product/3414280980209.json?fields=ecoscore_grade</li>
+<li>Here are the visuals.
+    * <a href="https://static.openfoodfacts.org/images/attributes/dist/green-score-a-plus.svg">A+ Green Score visual</a>
+    * <a href="https://static.openfoodfacts.org/images/attributes/dist/green-score-a.svg">A Green Score visual</a>
+    * <a href="https://static.openfoodfacts.org/images/attributes/dist/green-score-b.svg">B Green Score visual</a>
+    * <a href="https://static.openfoodfacts.org/images/attributes/dist/green-score-c.svg">C Green Score visual</a>
+    * <a href="https://static.openfoodfacts.org/images/attributes/dist/green-score-d.svg">D Green Score visual</a>
+    * <a href="https://static.openfoodfacts.org/images/attributes/dist/green-score-e.svg">E Green Score visual</a>
+    * <a href="https://static.openfoodfacts.org/images/attributes/dist/green-score-f.svg">F Green Score visual</a>
+    * [Unknown Green Score visual(https://static.openfoodfacts.org/images/attributes/dist/green-score-unknown.svg) </li>
+</ul>
+<h4 id="using-the-attributes-api">Using the Attributes API<a class="headerlink" href="#using-the-attributes-api" title="Permanent link">#</a></h4>
+<p>The Open Food Facts official app use this one, which is less work but also less flexible (will display other data as well).</p>
+<h3 id="displaying-the-green-score-outside-france">Displaying the Green-Score outside France<a class="headerlink" href="#displaying-the-green-score-outside-france" title="Permanent link">#</a></h3>
+<ul>
+<li>You need to ensure the country your users are in:
+    * Asking them explicitly at startup, and storing the value
+    * Geofencing your app to just one country
+    * Using the phones or the IP address (using eg GeoIP) to infer a country</li>
+<li>You need to serve the matching Green-Score value
+    * You can ask for a country specific Green-Score</li>
+<li><strong>If your users are outside France, you need to clearly display the experimental disclaimer at least once.</strong></li>
+</ul>
+<h3 id="ensuring-a-good-user-experience-even-with-data-gaps">Ensuring a good user experience (even with data gaps)<a class="headerlink" href="#ensuring-a-good-user-experience-even-with-data-gaps" title="Permanent link">#</a></h3>
+<p><em>We can compute the Green-Score for most of the database, but we’re missing some data on some products to make the computation exact, and it won’t be computed on some products. <span style="text-decoration:underline;">In any case, you need to make sure your users won’t be frustrated by implementing the following points:</span></em></p>
+<ul>
+<li>Adding disclaimers when we can’t display the Green-Score
+    * <strong><span style="text-decoration:underline;">Add a message if we have a category but no Green-Score</span></strong>
+        * <em>if “en:categories-completed” _in states_tags</em> <strong><span style="text-decoration:underline;">AND</span></strong> ecoscore_grade=Null_
+            * We could not compute an Green-Score for this product. It might be that the category is not specific enough or that we don't have supporting data for this category. If you believe this is an error, you can email <a href="mailto:contact@example.com">contact@example.com</a>
+            * You can get states with <a href="https://world.openfoodfacts.org/api/v0/product/3414280980209.json?fields=environmental_score_grade,states_tags">https://world.openfoodfacts.org/api/v0/product/3414280980209.json?fields=environmental_score_grade,states_tags </a>
+    * <strong><span style="text-decoration:underline;">Help the user add the category if it is missing</span></strong>
+        * You can use our Robotoff API to get your users to validate a prediction
+            * <a href="https://docs.google.com/document/d/1IoDy0toQrrqtWHvDYp2rEVw84Yq1J0x2pt-0RGTm7h0/edit">Robotoff Questions</a></li>
+<li>Adding disclaimers when the Green-Score is computed with a data gap + Asking the users to photograph and/or complete missing information
+    * <strong><span style="text-decoration:underline;">Add a message if no labels are available</span></strong>
+        * if "en:labels-to-be-completed" in states_tags
+            * <code>"The Green-Score takes into account environmental labels. Please take them into photo or edit the product so that they can be taken into account"</code>
+        * Asking your users for a photo should be enough
+        * You can otherwise add toggles for Explicit labels (please add a photo of them to avoid mistakes)
+        * You can get states with <a href="https://world.openfoodfacts.org/api/v0/product/3414280980209.json?fields=environmental_score_grade,states_tags">https://world.openfoodfacts.org/api/v0/product/3414280980209.json?fields=environmental_score_grade,states_tags </a>
+    * <strong><span style="text-decoration:underline;">Add a message if no origins are available</span></strong>
+        * if "en:origins-to-be-completed" in states_tags
+            * <code>"The Green-Score takes into account the origins of the ingredients. Please take them into a photo (ingredient list and/or any geographic claim or edit the product so that they can be taken into account. If it is not clear, you can contact the food producer."</code>
+            * You can get states with <a href="https://world.openfoodfacts.org/api/v0/product/3414280980209.json?fields=environmental_score_grade,states_tags">https://world.openfoodfacts.org/api/v0/product/3414280980209.json?fields=environmental_score_grade,states_tags </a>
+    * <strong><span style="text-decoration:underline;">Add a message if recycling information is missing</span></strong>
+        * if "en:packaging-photo-to-be-selected" in states_tags
+            * <a href="https://github.com/openfoodfacts/openfoodfacts-androidapp/issues/3531">Add a button to take a picture of the recycling instructions · Issue #3531 · openfoodfacts/openfoodfacts-androidapp</a> 
+        * if "en:packaging-to-be-completed" in states_tags
+            * you can get your users to type it, take a photo, or have a combinatory picker with packaging type, packaging material, packaging recyclability
+            * The field to input raw recycling instructions eg: “Plastic bottle to recycle, Plastic cap to recycle” is “packaging_text_en” (change the language code accordingly)
+            * It will get automatically parsed and get used to compute the Green-Score
+        * You can get states with <a href="https://world.openfoodfacts.org/api/v0/product/3414280980209.json?fields=ecoscore_grade,environmental_score_alpha,states_tags">https://world.openfoodfacts.org/api/v0/product/3414280980209.json?fields=environmental_score_grade,ecoscore_alpha,states_tags</a> 
+    * <strong><span style="text-decoration:underline;">Sharing some of your code</span></strong>
+        * You are very welcome to implement data contribution in one of our SDKs. The more apps let their user add photos and data, the more Green-Scores we get.</li>
+</ul>
+<h3 id="adding-value-by-explaining">Adding value by explaining<a class="headerlink" href="#adding-value-by-explaining" title="Permanent link">#</a></h3>
+<ul>
+<li>Product Attributes</li>
+<li>You can implement the product attributes API that displays additional information with a minimum of coding
+    * Full API documentation: <a href="https://wiki.openfoodfacts.org/Product_Attributes">https://wiki.openfoodfacts.org/Product_Attributes</a>
+    * Visual mockups: <a href="https://github.com/openfoodfacts/openfoodfacts-androidapp/issues/3501">https://github.com/openfoodfacts/openfoodfacts-androidapp/issues/3501</a> 
+    * A Flutter implementation is available, and you are very welcome to contribute implementation in one of our existing SDKs (or create your own)</li>
+<li>Explanation of Green-Score computations
+    * <a href="https://world-fr.openfoodfacts.org/api/v0/product/0634065322366.json?fields=environment_infocard,ecoscore_grade">https://world-fr.openfoodfacts.org/api/v0/product/0634065322366.json?fields=environment_infocard,ecoscore_grade</a> 
+    * HTML explanation. You can get the localized version by changing world-fr into world-de
+    * The HTML explanation is already available in the openfoodfacts-dart package</li>
+</ul>
+<h3 id="additional-ways-to-get-ready">Additional ways to get ready<a class="headerlink" href="#additional-ways-to-get-ready" title="Permanent link">#</a></h3>
+<ul>
+<li>Onboarding producers you know</li>
+<li>You can ask any producer you know to get in touch with us at <a href="mailto:producers@openfoodfacts.org">producers@openfoodfacts.org</a> so that their products are Green-Score ready in terms of data (we have easy ways to import their data using the Producer Platform: <a href="https://world.pro.openfoodfacts.org/">https://world.pro.openfoodfacts.org/</a> )</li>
+</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "../../..", "features": ["content.action.edit"], "search": "../../../assets/javascripts/workers/search.d50fe291.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../../assets/javascripts/bundle.13a4f30d.min.js"></script>
+      
+    
+  </body>
+</html>
